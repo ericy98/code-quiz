@@ -8,9 +8,12 @@
         <link rel="stylesheet" href="assets/style.css">
     </head>
     <body>
-        <div class="scores"></div>
+        <header class= "score-time" id="score-time">
+            <div id="scores"></div>
 
-        <div class="timer"></div>
+            <div id="timer"></div>
+        </header>
+        
 
         <div class="wrapper">
             <!-- start screen prompt -->
@@ -20,12 +23,11 @@
                     Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!
                 </p>
                 
-                    <button class="btn" id="start">Start Quiz</button>
+                    <button class="btn" id="start-btn">Start Quiz</button>
             </div>
 
             <!-- questions -->
             <div id="questions" style="display:none">
-                <div id="timer"></div>
                 <div id="question"></div>
                 <div id="choices" class="choices">
                     <!-- where options go -->
@@ -33,6 +35,7 @@
                     <div class="choice" id="B" onclick="checkAnswer('B')">B</div>
                     <div class="choice" id="C" onclick="checkAnswer('C')">C</div>
                     <div class="choice" id="D" onclick="checkAnswer('D')">D</div>
+                    <div class="answer-result" id="answer-result"></div>
                     
                 </div>
 
