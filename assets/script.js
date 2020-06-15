@@ -87,8 +87,6 @@ var startQuiz = function() {
 }
 
 
-
-
 var points = 0;
 var checkAnswer = function(answer) {
   
@@ -112,18 +110,11 @@ var checkAnswer = function(answer) {
   }
 }
 
-// var answerIsCorrect = function() {
-//   document.getElementById("answer-result").innerHTML = "CORRECT!"
-//   window.setTimeout(answerIsCorrect(), 1000)
-// }
-
 var showResults = function(){
   
   quizContainer.style.display = "none";
   quizResults.style.display = "block";
   
-  //quizResults.innerHTML = "<h2> How You Did: " + highScore + "</h2>";
-  // check local storage for highscore
   localStorage.getItem("highscore",points);
   if (highScore === null) {
     highScore = 0;
@@ -132,20 +123,8 @@ var showResults = function(){
     
   }
   
-  //finalScore.innerText = highScore;
-  // function form () {
-  //   var formContainer = document.createElement("form");
-  // formContainer.setAttribute("id", "initialsForm")
-  // document.body.appendChild(formContainer);
+  quizResults.textContent ="Your Final Score Is: " + points;
 
-  // var formInput = document.createElement("input");
-  // formInput.setAttribute("type", "text");
-  // formInput.setAttribute("value", "Enter Initials Here")
-  // document.getElementById("initialsForm").appendChild(formInput);
-
-  // form();
-  // }
-  
   //new high score
   if (points > highScore) {
     localStorage.setItem("highscore", points)
