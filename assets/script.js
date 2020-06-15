@@ -58,6 +58,8 @@ var questions = [
   }
 ];
 
+var highScorePrompt = ["Your High Score is " + points]
+
 // set variables 
 var lastQuestion = questions.length - 1;
 var currentQuestion = 0;
@@ -95,8 +97,8 @@ var checkAnswer = function(answer) {
     console.log("points " + points);
   } else {
     timeLeft= timeLeft - 10;
-    points = points - 5;
-    points = Math.max(0, points - 5)
+    points = points - 10;
+    points = Math.max(0, points - 10)
 
     console.log("points " + points);
   }
@@ -118,41 +120,42 @@ var checkAnswer = function(answer) {
 var showResults = function(){
   
   quizContainer.style.display = "none";
-  quizResults.innerHTML = "<h2> How You Did: " + highScore + "</h2>";
+  quizResults.style.display = "block";
+  
+  //quizResults.innerHTML = "<h2> How You Did: " + highScore + "</h2>";
   // check local storage for highscore
-  var highScore = localStorage.getItem("highscore")
+  localStorage.getItem("highscore",points);
   if (highScore === null) {
     highScore = 0;
+  } else{
+    var highScore = (localStorage.getItem("highScore"));
+    
   }
+  
+  //finalScore.innerText = highScore;
+  // function form () {
+  //   var formContainer = document.createElement("form");
+  // formContainer.setAttribute("id", "initialsForm")
+  // document.body.appendChild(formContainer);
 
-  function form () {
-    var formContainer = document.createElement("form");
-  formContainer.setAttribute("id", "initialsForm")
-  document.body.appendChild(formContainer);
+  // var formInput = document.createElement("input");
+  // formInput.setAttribute("type", "text");
+  // formInput.setAttribute("value", "Enter Initials Here")
+  // document.getElementById("initialsForm").appendChild(formInput);
 
-  var formInput = document.createElement("input");
-  formInput.setAttribute("type", "text");
-  formInput.setAttribute("value", "Enter Initials Here")
-  document.getElementById("initialsForm").appendChild(formInput);
-
-  form();
-  }
-
-  // new high score
-  // if (points > highScore) {
-  //   localStorage.setItem("highscore", points)
-  //   localStorage.setItem("name", initals)
+  // form();
   // }
+  
+  //new high score
+  if (points > highScore) {
+    localStorage.setItem("highscore", points)
+    //localStorage.setItem("name", initals)
+  } 
 }
-
-
 
 var count = 0;
 var timeLeft = 75;
   // create countdown
-
-
-
 startBtn.addEventListener("click", startQuiz)
 
 
