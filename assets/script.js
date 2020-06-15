@@ -11,6 +11,7 @@ var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var endQuiz = document.getElementById("end-screen");
 var quizResults = document.getElementById("results")
+var finalScore = document.getElementById("final-score");
 
 
 // make every element in array an object
@@ -86,14 +87,18 @@ var startQuiz = function() {
 
 
 
-
+var points = 0;
 var checkAnswer = function(answer) {
   
   if (answer === questions[currentQuestion].correctAnswer) {
-    console.log("correct");
+    points = points + 10;
+    console.log("points " + points);
   } else {
-    console.log("WRONG");
-    timeLeft= timeLeft - 15;
+    timeLeft= timeLeft - 10;
+    points = points - 5;
+    points = Math.max(0, points - 5)
+
+    console.log("points " + points);
   }
   
   if (currentQuestion < lastQuestion) {
@@ -111,7 +116,33 @@ var checkAnswer = function(answer) {
 // }
 
 var showResults = function(){
-    alert("RESULTS");
+  
+  quizContainer.style.display = "none";
+  quizResults.innerHTML = "<h2> How You Did: " + highScore + "</h2>";
+  // check local storage for highscore
+  var highScore = localStorage.getItem("highscore")
+  if (highScore === null) {
+    highScore = 0;
+  }
+
+  function form () {
+    var formContainer = document.createElement("form");
+  formContainer.setAttribute("id", "initialsForm")
+  document.body.appendChild(formContainer);
+
+  var formInput = document.createElement("input");
+  formInput.setAttribute("type", "text");
+  formInput.setAttribute("value", "Enter Initials Here")
+  document.getElementById("initialsForm").appendChild(formInput);
+
+  form();
+  }
+
+  // new high score
+  // if (points > highScore) {
+  //   localStorage.setItem("highscore", points)
+  //   localStorage.setItem("name", initals)
+  // }
 }
 
 
