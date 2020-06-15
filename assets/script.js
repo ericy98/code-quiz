@@ -63,6 +63,8 @@ var highScorePrompt = ["Your High Score is " + points]
 // set variables 
 var lastQuestion = questions.length - 1;
 var currentQuestion = 0;
+var count = 0;
+var timeLeft = 75;
 
 var shuffledQuestions, currentQuestion
 var setNextQuestion = function(){
@@ -72,17 +74,35 @@ var setNextQuestion = function(){
   choiceB.innerHTML = q.choiceB;
   choiceC.innerHTML = q.choiceC;
   choiceD.innerHTML = q.choiceD;
-
 };
 
 
+
+
 var startQuiz = function() {
-  
+  // timer
+  var timeInterval= setInterval(function(){
+    timerEl.textContent = "Time: " + timeLeft;
+    timerEl.setAttribute("style", "text-align: end");
+    timeLeft --;
+
+    if(timeLeft === 0) {
+      timerEl.textContent = "";
+      clearInterval(timeInterval);
+      showResults();
+    }
+    if (currentQuestion > lastQuestion){
+      clearInterval( timeInterval);
+      showResults();
+    }
+  }, 1000);
+
   quizStart.style.display = "none";
   quizContainer.style.display = "block";
   //randomize question order
   shuffledQuestions = questions.sort(() =>Math.random() - .5);
   setNextQuestion();
+  // create countdown
 
 }
 
@@ -105,7 +125,7 @@ var checkAnswer = function(answer) {
     currentQuestion++;
     setNextQuestion();
   }else {
-    clearInterval(timeInterval);
+    clearInterval();
     showResults();
   }
 }
@@ -127,33 +147,16 @@ var showResults = function(){
 
   //new high score
   if (points > highScore) {
-    localStorage.setItem("highscore", points)
+    localStorage.setItem("New highscore", points.value)
     //localStorage.setItem("name", initals)
   } 
 }
 
-var count = 0;
-var timeLeft = 75;
-  // create countdown
-startBtn.addEventListener("click", startQuiz)
-
-
-var timeInterval= setInterval(function(){
-  timerEl.textContent = "Time: " + timeLeft;
-  timerEl.setAttribute("style", "text-align: end");
-  timeLeft --;
-
-  if(timeLeft === 0) {
-    timerEl.textContent = "";
-    showResults();
-    clearInterval(timeInterval);
-  }
-
-}, 1000);
 
 
 var stopTimer = function() {
-  clearInterval(timeInterval);
+  clearInterval();
 }
 
 setNextQuestion();
+startBtn.addEventListener("click", startQuiz)
